@@ -1,4 +1,7 @@
-environment {
+pipeline {
+    agent any
+
+    environment {
         DOCKER_IMAGE = 'khushelpeck/hello:latest'
     }
 
