@@ -13,7 +13,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.release>21</maven.compiler.release>
   </properties>
 
   <dependencyManagement>
@@ -66,6 +66,13 @@
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.4.2</version>
+		<configuration>
+			<archive>
+				<manifest>
+					<mainClass>devops.demo.hello.HelloServer</mainClass>
+				</manifest>
+			</archive>
+		</configuration>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
