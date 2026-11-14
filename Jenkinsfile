@@ -1,14 +1,18 @@
+
 pipeline {
+
     agent any
 
     environment {
         DOCKER_IMAGE = 'khushelpeck/hello:latest'
+        SERVER_PORT = '0'
     }
 
     stages {
+
         stage('Build Maven Project') {
             steps {
-                sh 'mvn clean package'
+                sh 'mvn clean verify'
             }
         }
 
@@ -27,7 +31,9 @@ pipeline {
                 )]) {
                     sh '''
                         echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+
                         docker push $DOCKER_IMAGE
+
                         docker logout
                     '''
                 }
@@ -38,10 +44,14 @@ pipeline {
             steps {
                 sh '''
                     docker stop hello-container || true
+
                     docker rm hello-container || true
+
                     docker run -d --name hello-container -p 8081:8080 $DOCKER_IMAGE
                 '''
             }
         }
+
     }
+
 }
